@@ -15,6 +15,22 @@ public class InventoryService {
         this.repository = repository;
     }
 
+    public ProductResponseDTO addProduct(ProductRequestDTO dto) {
+        Product product = new Product();
+        product.setName(dto.getName());
+        product.setPrice(dto.getPrice());
+        product.setQuantity(dto.getQuantity());
+
+        Product result = repository.save(product);
+        ProductResponseDTO res = new ProductResponseDTO();
+
+        res.setId(result.getId());
+        res.setName(result.getName());
+        res.setPrice(result.getPrice());
+        res.setQuantity(result.getQuantity());
+        return res;
+    }
+
     public List<ProductResponseDTO> getProducts() {
         return repository.findAll().stream().map(p -> {
             ProductResponseDTO dto = new ProductResponseDTO();
